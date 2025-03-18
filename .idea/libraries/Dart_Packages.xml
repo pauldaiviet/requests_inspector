@@ -277,6 +277,13 @@
             </list>
           </value>
         </entry>
+        <entry key="logging">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/logging-1.3.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="matcher">
           <value>
             <list>
@@ -410,17 +417,38 @@
             </list>
           </value>
         </entry>
+        <entry key="sensors_plus">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/sensors_plus-6.1.1/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="sensors_plus_platform_interface">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/sensors_plus_platform_interface-2.0.1/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="shake">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/git/sale_app_libraries-1dd0f005bab08b4cc30098055064b4e2f01e167f/shake/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="share_plus">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/share_plus-10.0.3/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/share_plus-7.2.2/lib" />
             </list>
           </value>
         </entry>
         <entry key="share_plus_platform_interface">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/share_plus_platform_interface-5.0.1/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/share_plus_platform_interface-3.4.0/lib" />
             </list>
           </value>
         </entry>
@@ -581,6 +609,7 @@
       </option>
     </properties>
     <CLASSES>
+      <root url="file://$USER_HOME$/.pub-cache/git/sale_app_libraries-1dd0f005bab08b4cc30098055064b4e2f01e167f/shake/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/args-2.4.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/async-2.11.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/boolean_selector-2.1.1/lib" />
@@ -619,6 +648,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/leak_tracker_testing-3.0.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/lints-2.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/lints-5.0.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/logging-1.3.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/matcher-0.12.16+1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/material_color_utilities-0.11.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/meta-1.15.0/lib" />
@@ -638,8 +668,10 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.8/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/provider-6.1.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/rxdart-0.27.7/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/share_plus-10.0.3/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/share_plus_platform_interface-5.0.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/sensors_plus-6.1.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/sensors_plus_platform_interface-2.0.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/share_plus-7.2.2/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/share_plus_platform_interface-3.4.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/source_span-1.10.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/sprintf-7.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/stack_trace-1.12.0/lib" />

@@ -4,16 +4,13 @@ import '../requests_inspector.dart';
 
 class RequestsInspectorInterceptor extends Interceptor {
   @override
-  Future<void> onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
+  Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     options.extra['startTime'] = DateTime.now();
 
-    if (!InspectorController().requestStopperEnabled)
-      return super.onRequest(options, handler);
+    if (!InspectorController().requestStopperEnabled) return super.onRequest(options, handler);
 
     final requestDetails = _convertToRequestDetails(options);
-    final newRequestDetails =
-        await InspectorController().editRequest(requestDetails);
+    final newRequestDetails = await InspectorController().editRequest(requestDetails);
 
     if (newRequestDetails == null) return super.onRequest(options, handler);
 
@@ -22,37 +19,41 @@ class RequestsInspectorInterceptor extends Interceptor {
   }
 
   @override
-  Future<void> onResponse(
-      Response response, ResponseInterceptorHandler handler) async {
-    final dateTime = DateTime.now();
+  Future<void> onResponse(Response response, ResponseInterceptorHandler handler) async {
+    try {
+      final dateTime = DateTime.now();
 
-    if (InspectorController().responseStopperEnabled) {
-      final oldResponseData = response.data;
+      if (InspectorController().responseStopperEnabled) {
+        final oldResponseData = response.data;
 
-      final newResponseData =
-          await InspectorController().editResponse(oldResponseData);
+        final newResponseData = await InspectorController().editResponse(oldResponseData);
 
-      response.data = newResponseData ?? oldResponseData;
+        response.data = newResponseData ?? oldResponseData;
+      }
+
+      final urlAndQueryParMapEntry = _extractUrl(response.requestOptions);
+      final url = urlAndQueryParMapEntry.key;
+      final queryParameters = urlAndQueryParMapEntry.value;
+      InspectorController().addNewRequest(
+        RequestDetails(
+          requestMethod:
+              RequestMethod.values.firstWhere((e) => e.name == response.requestOptions.method),
+          url: url,
+          statusCode: response.statusCode ?? 0,
+          headers: response.requestOptions.headers,
+          queryParameters: queryParameters,
+          requestBody: response.requestOptions.data,
+          responseBody: response.data,
+          sentTime: response.requestOptions.extra['startTime'],
+          receivedTime: dateTime,
+        ),
+      );
+      super.onResponse(response, handler);
+    } catch (e) {
+      print('-------------InspectorController----------------');
+      print(e);
+      print('-------------InspectorController----------------');
     }
-
-    final urlAndQueryParMapEntry = _extractUrl(response.requestOptions);
-    final url = urlAndQueryParMapEntry.key;
-    final queryParameters = urlAndQueryParMapEntry.value;
-    InspectorController().addNewRequest(
-      RequestDetails(
-        requestMethod: RequestMethod.values
-            .firstWhere((e) => e.name == response.requestOptions.method),
-        url: url,
-        statusCode: response.statusCode ?? 0,
-        headers: response.requestOptions.headers,
-        queryParameters: queryParameters,
-        requestBody: response.requestOptions.data,
-        responseBody: response.data,
-        sentTime: response.requestOptions.extra['startTime'],
-        receivedTime: dateTime,
-      ),
-    );
-    super.onResponse(response, handler);
   }
 
   @override
@@ -62,8 +63,7 @@ class RequestsInspectorInterceptor extends Interceptor {
     final queryParameters = urlAndQueryParMapEntry.value;
     InspectorController().addNewRequest(
       RequestDetails(
-        requestMethod: RequestMethod.values
-            .firstWhere((e) => e.name == err.requestOptions.method),
+        requestMethod: RequestMethod.values.firstWhere((e) => e.name == err.requestOptions.method),
         url: url,
         headers: err.requestOptions.headers,
         queryParameters: queryParameters,
@@ -86,21 +86,15 @@ class RequestsInspectorInterceptor extends Interceptor {
       final split = e.split('=');
       return MapEntry(split.first, split.last);
     }).toList();
-    final builtInQueryParams = buildInQueryParamsList == null
-        ? null
-        : Map.fromEntries(buildInQueryParamsList);
-    final queryParameters = {
-      ...?builtInQueryParams,
-      ...requestOptions.queryParameters
-    };
+    final builtInQueryParams =
+        buildInQueryParamsList == null ? null : Map.fromEntries(buildInQueryParamsList);
+    final queryParameters = {...?builtInQueryParams, ...requestOptions.queryParameters};
 
     return MapEntry(baseUrl, queryParameters);
   }
 
-  RequestDetails _convertToRequestDetails(RequestOptions options) =>
-      RequestDetails(
-        requestMethod:
-            RequestMethod.values.firstWhere((e) => e.name == options.method),
+  RequestDetails _convertToRequestDetails(RequestOptions options) => RequestDetails(
+        requestMethod: RequestMethod.values.firstWhere((e) => e.name == options.method),
         url: options.uri.toString(),
         headers: options.headers,
         queryParameters: options.queryParameters,
@@ -108,8 +102,7 @@ class RequestsInspectorInterceptor extends Interceptor {
         sentTime: DateTime.now(),
       );
 
-  RequestOptions _copyRequestToNewOptions(
-          RequestOptions options, RequestDetails requestDetails) =>
+  RequestOptions _copyRequestToNewOptions(RequestOptions options, RequestDetails requestDetails) =>
       options.copyWith(
         method: requestDetails.requestMethod.name,
         headers: requestDetails.headers,

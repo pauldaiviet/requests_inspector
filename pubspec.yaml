@@ -26,7 +26,7 @@ dependencies:
       url: https://github.com/DatUET/sale_app_libraries
       ref: main
       path: shake
-  share_plus: ^10.0.3
+  share_plus: 7.2.2
 
 dev_dependencies:
   flutter_lints: ^5.0.0
